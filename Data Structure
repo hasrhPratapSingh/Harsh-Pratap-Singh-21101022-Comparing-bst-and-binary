@@ -1,0 +1,73 @@
+               #sorted array to bst
+The idea is to find the middle element of the array and make it the root of the tree,
+then perform the same operation on the left subarray for the root’s left child and the same operation on the
+right subarray for the root’s right child.
+
+Follow the steps mentioned below to implement the approach:
+
+1.Set The middle element of the array as root.
+2.Recursively do the same for the left half and right half.
+3.Get the middle of the left half and make it the left child of the root created in step 1.
+4.Get the middle of the right half and make it the right child of the root created in step 1.
+5.Print the preorder of the tree.
+# Python code to convert a sorted array
+# to a balanced Binary Search Tree
+
+# binary tree node
+class Node:
+	def __init__(self, d):
+		self.data = d
+		self.left = None
+		self.right = None
+
+# function to convert sorted array to a
+# balanced BST
+# input : sorted array of integers
+# output: root node of balanced BST
+def sortedArrayToBST(arr):
+	
+	if not arr:
+		return None
+
+	# find middle index
+	mid = (len(arr)) // 2
+	
+	# make the middle element the root
+	root = Node(arr[mid])
+	
+	# left subtree of root has all
+	# values 
+	root.left = sortedArrayToBST(arr[:mid])
+	
+	# right subtree of root has all
+	# values >arr[mid]
+	root.right = sortedArrayToBST(arr[mid+1:])
+	return root
+
+# A utility function to print the preorder
+# traversal of the BST
+def preOrder(node):
+	if not node:
+		return
+	
+	print ( node.data)
+	preOrder(node.left)
+	preOrder(node.right)
+
+# driver program to test above function
+"""
+Constructed balanced BST is
+  4
+/   \
+2    6
+/ \ / \
+1 3 5 7
+"""
+
+arr = [1, 2, 3, 4, 5, 6, 7]
+root = sortedArrayToBST(arr)
+b=preOrder(root)
+print("PreOrder Traversal of constructed BST",b)
+
+
+# This code is contributed by Harsh Pratap Singh
